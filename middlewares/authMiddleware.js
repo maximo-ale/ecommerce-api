@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
         req.user = decoded;
         req.userId = decoded.userId;
 
-        // Only users from the app
+        // Only users from the DB
         const userInDB = await User.findById(decoded.userId);
         if (!userInDB){
             return res.status(403).json({message: 'Invalid token'});
