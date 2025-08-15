@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createReview, modifyReview, getProductReviews, getUserReviews, deleteReview, getAllReviews } = require('../controllers/reviewController');
+const { createReview, modifyReview, getProductReviews, getUserReviews, deleteReview } = require('../controllers/reviewController');
 const { auth, adminOnly } = require('../middlewares/authMiddleware');
 
 const {body, param, query} = require('express-validator');
@@ -29,7 +29,5 @@ router.get('/userReviews/:userId',
 router.delete('/delete/:reviewId',
     param('reviewId').isMongoId().withMessage("Invalid ID"),
     validateRequest, auth, deleteReview);
-
-router.get('/', auth, adminOnly, getAllReviews);
 
 module.exports = router;
