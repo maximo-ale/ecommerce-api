@@ -28,6 +28,20 @@ cp .env.example .env
 4. Start the server
 - npm start
 
+## Database Reset for Demo
+
+This project includes a script to reset the database and load test data automatically when the server starts with:
+
+RESET_DB_ON_START=true
+
+Notes:
+
+Only for demo/testing purposes.
+
+It is disabled by default (RESET_DB_ON_START=false) in production to preserve real data.
+
+This ensures each recruiter or tester starts with a clean environment.
+
 ## Features
 
 - **Authentication & Authorization**
