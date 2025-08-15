@@ -10,7 +10,6 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 
 app.use(express.json());
-app.use(errorHandler);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
