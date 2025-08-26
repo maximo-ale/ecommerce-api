@@ -1,6 +1,8 @@
-require('dotenv').config();
-const resetDB = require('../utils/resetDB');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import resetDB from '../utils/resetDB.js';
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
     try {
@@ -17,4 +19,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = connectDB;
+export default connectDB;

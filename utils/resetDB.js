@@ -1,9 +1,11 @@
-const Review = require("../models/Review");
-const User = require("../models/User");
-const Cart = require('../models/Cart');
-const Coupon = require('../models/Coupon');
-const Order = require('../models/Order');
-const Product = require('../models/Product');
+import Review from "../entities/review/Review.js";
+import User from "../entities/user/User.js";
+import Cart from '../entities/cart/Cart.js';
+import Coupon from '../entities/coupon/Coupon.js';
+import Order from '../entities/order/Order.js';
+import Product from '../entities/product/Product.js';
+import productRepository from "../entities/product/productRepository.js";
+import userRepository from "../entities/user/userRepository.js";
 
 const resetDB = async() => {
     await Review.deleteMany();
@@ -14,4 +16,4 @@ const resetDB = async() => {
     await Product.deleteMany();
 }
 
-module.exports = resetDB;
+export default resetDB;

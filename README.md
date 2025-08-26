@@ -1,7 +1,7 @@
 # E-Commerce REST API
 
-A fully functional E-Commerce REST API built with Node.js, Express, and MongoDB.  
-It includes authentication, role-based access control, product management, cart system, order processing, coupon handling, and product reviews.
+A fully functional E-Commerce REST API built with Node.js, Express, and MongoDB.
+It includes authentication, role-based access control, product management, cart system, order processing, coupon handling, product reviews, request limiting, error handling, clustering for scalability, and automated testing.
 
 ## Quick Start
 
@@ -44,50 +44,65 @@ This ensures each recruiter or tester starts with a clean environment.
 
 ## Features
 
-- **Authentication & Authorization**
-  - JWT-based authentication
-  - Role-based access (Admin / User)
+### Authentication & Authorization
+- JWT-based authentication  
+- Role-based access (Admin / User)  
 
-- **Product Management**
-  - Create, read, update, delete products (Admin only for modifications)
-  - Pagination & filtering support
+### Product Management
+- Create, read, update, delete products
+- Pagination & filtering support  
 
-- **Cart System**
-  - Add, modify quantity, remove, and clear items
-  - Apply discount coupons before checkout
+### Cart System
+- Add, modify quantity, remove, and clear items  
+- Apply discount coupons before checkout  
 
-- **Order Management**
-  - Create orders from cart
-  - View order details & history
-  - Admin can see all orders and update states
+### Order Management
+- Create orders from cart  
+- View order details & history  
+- Admin can see all orders and update states  
 
-- **Coupons**
-  - Admin can create discount coupons
-  - Validates expiration & max uses
+### Coupons
+- Admin can create discount coupons  
+- Validates expiration & max uses  
 
-- **Reviews**
-  - Users can review only purchased products
-  - Users can see product's reviews and reviews made by an user
+### Reviews
+- Users can review only purchased products  
+- Users can see product's reviews and reviews made by a user  
+
+### Security & Performance
+- Request rate limiting (`express-rate-limit`)  
+- Global error handler  
+- Clustering support for better scalability  
+
+### Testing
+- Jest + Supertest integration  
+- Automated tests for main endpoints
+- To run tests locally: `npm test -- --runInBand`
 
 ## Technologies
-
-- Node.js
-- Express
-- MongoDB + Mongoose
-- JWT for authentication
-- express-validator
-- bcrypt (password hashing)
-- Postman (for manual testing)
+- Node.js  
+- Express  
+- MongoDB + Mongoose  
+- JWT for authentication  
+- express-validator  
+- bcrypt (password hashing)  
+- express-rate-limit (request limiting)  
+- Jest + Supertest (testing)  
+- Postman (manual testing)  
 
 ## Project Structure
-- Config
-- Controllers
-- Middlewares
-- Models
-- Node_modules
-- Routes
-- Utils
-- server.js
+- /config --> DB connection
+- /entities --> Each entity has its own folder containing:
+    - Model
+    - Controller
+    - Repository
+    - Routes
+    - Service
+- /middlewares
+- /tests (Jest and Supertest)
+- /utils --> General helper functions and utilities
+- 'cluster.js'
+- 'server.js'
 - .env (ignored)
 
 # API Endpoints
@@ -104,15 +119,15 @@ This ensures each recruiter or tester starts with a clean environment.
 | POST   | /api/products/create | Create product (Admin) |
 | GET    | /api/products/find   | Get all products (with pagination & filters) |
 | GET    | /api/products/find/:id | Get product by ID |
-| PUT    | /api/products/modify/:id | Modify product (Admin) |
-| DELETE | /api/products/delete/:id | Delete product (Admin) |
+| PATCH  | /api/products/modify/:id | Modify product (Admin) |
+| PATCH  | /api/products/delete/:id | Delete product (Admin) |
 
 ## **Cart**
 | Method | Endpoint                     | Description |
 |--------|------------------------------|-------------|
 | GET    | /api/cart/                  | Get user cart |
 | POST   | /api/cart/add               | Add product to cart |
-| PUT    | /api/cart/modifyQuantity/:productId | Modify product quantity in cart |
+| PATCH  | /api/cart/modifyQuantity/:productId | Modify product quantity in cart |
 | DELETE | /api/cart/removeProduct/:productId | Remove product from cart |
 | DELETE | /api/cart/clear             | Clear cart |
 | POST   | /api/cart/addCoupon         | Apply coupon to cart |
@@ -124,7 +139,7 @@ This ensures each recruiter or tester starts with a clean environment.
 | GET    | /api/order/details/:orderId | Get order details |
 | GET    | /api/order/history          | Get user order history |
 | GET    | /api/order/all              | Get all orders (Admin) |
-| PUT    | /api/order/state/:orderId   | Update order state (Admin) |
+| PATCH    | /api/order/state/:orderId   | Update order state (Admin) |
 
 ## **Coupons**
 | Method | Endpoint             | Description |
@@ -136,7 +151,7 @@ This ensures each recruiter or tester starts with a clean environment.
 | Method | Endpoint                      | Description |
 |--------|--------------------------------|-------------|
 | POST   | /api/review/create/:productId | Create review for purchased product |
-| PUT    | /api/review/modify/:productId | Modify own review |
+| PATCH  | /api/review/modify/:productId | Modify own review |
 | GET    | /api/review/:productId        | Get reviews for a product |
 | GET    | /api/review/userReviews/:userId | Get all reviews by user |
 | DELETE | /api/review/delete/:reviewId | Delete review |
