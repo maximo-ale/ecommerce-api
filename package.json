@@ -7,8 +7,7 @@
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.18.0",
-    "mongoose": "^8.17.0",
-    "zod": "^4.1.0"
+    "mongoose": "^8.17.0"
   },
   "type": "module",
   "devDependencies": {
@@ -20,6 +19,8 @@
     "supertest": "^7.1.4"
   },
   "scripts": {
-    "test": "jest"
+    "start": "node cluster.js",          
+    "dev": "nodemon cluster.js",         
+    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit"
   }
 }
