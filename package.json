@@ -15,12 +15,13 @@
     "@babel/preset-env": "^7.28.3",
     "@types/jest": "^30.0.0",
     "babel-jest": "^30.0.5",
+    "cross-env": "^10.0.0",
     "jest": "^30.0.5",
     "supertest": "^7.1.4"
   },
   "scripts": {
-    "start": "node cluster.js",          
-    "dev": "nodemon cluster.js",         
-    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit"
+    "start": "node cluster.js",
+    "dev": "nodemon cluster.js",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --forceExit"
   }
 }
