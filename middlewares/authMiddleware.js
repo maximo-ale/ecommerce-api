@@ -24,7 +24,6 @@ export const auth = async (req, res, next) => {
         }
         next(); 
     } catch {
-        console.log(`token: ${token} is invalid`);
         throw new NotAuthorizedError('Invalid token');
     }
 }

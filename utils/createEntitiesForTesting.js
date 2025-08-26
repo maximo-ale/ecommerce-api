@@ -6,7 +6,6 @@ export const createUser = async (userData) => {
         .post('/api/auth/register')
         .send(userData);
         
-    console.log(`token: ${res.body.token}`);
     return {data: res.body.user, token: res.body.token};
 }
 
