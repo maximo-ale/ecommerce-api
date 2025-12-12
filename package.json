@@ -1,5 +1,9 @@
 {
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
+    "@types/pg": "^8.15.5",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
@@ -7,21 +11,31 @@
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.18.0",
-    "mongoose": "^8.17.0"
+    "mongoose": "^8.17.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.11"
   },
-  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
-    "babel-jest": "^30.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/supertest": "^6.0.3",
     "cross-env": "^10.0.0",
-    "jest": "^30.0.5",
-    "supertest": "^7.1.4"
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
   },
   "scripts": {
-    "start": "node cluster.js",
-    "dev": "nodemon cluster.js",
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --forceExit"
+    "dev": "nodemon",
+    "start": "tsx src/cluster.ts",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --forceExit",
+    "build": "tsc"
   }
 }

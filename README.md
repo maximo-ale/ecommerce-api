@@ -1,6 +1,6 @@
 # E-Commerce REST API
 
-A fully functional E-Commerce REST API built with Node.js, Express, and MongoDB.
+A fully functional E-Commerce REST API built with Node.js, Express, and PostgreSQL.
 It includes authentication, role-based access control, product management, cart system, order processing, coupon handling, product reviews, request limiting, error handling, clustering for scalability, and automated testing.
 
 ## Quick Start
@@ -59,7 +59,7 @@ This ensures each recruiter or tester starts with a clean environment.
 ### Order Management
 - Create orders from cart  
 - View order details & history  
-- Admin can see all orders and update states  
+- Admin can see all orders and update status  
 
 ### Coupons
 - Admin can create discount coupons  
@@ -77,7 +77,7 @@ This ensures each recruiter or tester starts with a clean environment.
 ### Testing
 - Jest + Supertest integration  
 - Automated tests for main endpoints
-- To run tests locally: `npm test -- --runInBand`
+- To run tests locally add `NODE_ENV=test` in the .env and run: `npm test -- --runInBand`
 
 ## Technologies
 - Node.js  
@@ -139,7 +139,7 @@ This ensures each recruiter or tester starts with a clean environment.
 | GET    | /api/order/details/:orderId | Get order details |
 | GET    | /api/order/history          | Get user order history |
 | GET    | /api/order/all              | Get all orders (Admin) |
-| PATCH    | /api/order/state/:orderId   | Update order state (Admin) |
+| PATCH    | /api/order/status/:orderId   | Update order status (Admin) |
 
 ## **Coupons**
 | Method | Endpoint             | Description |
