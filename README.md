@@ -9,10 +9,7 @@ It includes authentication, role-based access control, product management, cart 
 - git clone https://github.com/maximo-ale/ecommerce-api.git
 - cd ecommerce-api
 
-2. Install dependencies
-- npm install
-
-3. Copy '.env.example' to '.env'
+2. Copy '.env.example' to '.env'
 - On Windows CMD:
 copy .env.example .env
 - On Windows PowerShell:
@@ -20,13 +17,11 @@ Copy-Item .env.example .env
 - On Linux/macOS:
 cp .env.example .env
 
-4. The '.env' file already includes a test user and a public database:
-- PORT=3000
-- MONGO_URI=mongodb+srv://testUser:testPassword@cluster.uzqisyr.mongodb.net/?
-- JWT_SECRET=JWT_example
+3. Build the Docker image
+- docker compose build
 
 4. Start the server
-- npm start
+- docker compose up
 
 ## Database Reset for Demo
 
@@ -59,10 +54,10 @@ This ensures each recruiter or tester starts with a clean environment.
 ### Order Management
 - Create orders from cart  
 - View order details & history  
-- Admin can see all orders and update status  
+- Admins can see all orders and update status  
 
 ### Coupons
-- Admin can create discount coupons  
+- Admins can create discount coupons  
 - Validates expiration & max uses  
 
 ### Reviews
@@ -77,7 +72,10 @@ This ensures each recruiter or tester starts with a clean environment.
 ### Testing
 - Jest + Supertest integration  
 - Automated tests for main endpoints
-- To run tests locally add `NODE_ENV=test` in the .env and run: `npm test -- --runInBand`
+- To run tests locally run: `docker compose run --rm test`
+
+### Docker
+- Docker setup with Dockerfile + docker-compose.yml
 
 ## Technologies
 - Node.js  
@@ -88,22 +86,27 @@ This ensures each recruiter or tester starts with a clean environment.
 - bcrypt (password hashing)  
 - express-rate-limit (request limiting)  
 - Jest + Supertest (testing)  
-- Postman (manual testing)  
+- Postman (manual testing)
+- Docker
 
 ## Project Structure
-- /config --> DB connection
-- /entities --> Each entity has its own folder containing:
-    - Model
-    - Controller
-    - Repository
-    - Routes
-    - Service
-- /middlewares
-- /tests (Jest and Supertest)
-- /utils --> General helper functions and utilities
-- 'cluster.js'
-- 'server.js'
+- src/
+    ├─ /config --> DB connection
+    ├─ /entities/
+    |   ├─ - Controller
+    |   ├─ - Repository
+    |   ├─ - Routes
+    |   ├─ - Service
+    |   ├─ - Schema
+    |   └─ - Interfaces
+    ├─ middlewares/
+    ├─ tests/ --> (Jest and Supertest)
+    ├─ utils/ --> General helper functions and utilities
+    ├─ cluster.ts
+    └─ server.ts
 - .env (ignored)
+- docker-compose.yml
+- Dockerfile
 
 # API Endpoints
 
