@@ -8,6 +8,9 @@ import validate from '../../middlewares/validateRequest';
 import { createProductSchema, findProductSchema, updateProductSchema } from './productSchema';
 import { productIdSchema } from '../../utils/zod/idSchema';
 
+// Cache from Redis
+import { getAllProducts, getCachedProduct } from '../../middlewares/redis/productsCache.middleware';
+
 router.post('/create',
     validate(createProductSchema, 'body'),
     auth, adminOnly,
@@ -15,10 +18,12 @@ router.post('/create',
 
 router.get('/find',
     validate(findProductSchema, 'query'),
+    getAllProducts,
     productController.find);
 
 router.get('/find/:productId', 
     validate(productIdSchema, 'params'),
+    getCachedProduct,
     productController.findOne);
 
 router.patch('/update/:productId',

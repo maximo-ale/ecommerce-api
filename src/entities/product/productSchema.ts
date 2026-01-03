@@ -19,12 +19,16 @@ export const findProductSchema = z.object({
     name: z
     .string()
     .optional(),
-    category: z.string(),
-    minPrice: positiveInteger('Minimum Price'),
-    maxPrice: positiveInteger('Maximum Price'),
-    stock: positiveInteger('stock'),
+    category: z.string().optional(),
+    minPrice: positiveInteger('Minimum Price').optional(),
+    maxPrice: positiveInteger('Maximum Price').optional(),
+    stock: positiveInteger('stock').optional(),
 }).superRefine((data, ctx) => {
     const { minPrice, maxPrice } = data;
+    if (!minPrice || !maxPrice){
+        return;
+    }
+    
     if (minPrice > maxPrice){
         ctx.addIssue({
             code: z.ZodIssueCode.custom,

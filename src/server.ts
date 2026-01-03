@@ -11,10 +11,13 @@ import cartRoutes from './entities/cart/cartRoutes';
 import orderRoutes from './entities/order/orderRoutes';
 import reviewRoutes from './entities/review/reviewRoutes';
 import couponRoutes from './entities/coupon/couponRoutes';
+import { waitForDB } from './utils/waitForDB';
 
 app.use(express.json());
 
 app.use(rateLimit);
+
+await waitForDB();
 
 app.use('/api/auth', registerAndLoginLimit, authRoutes);
 app.use('/api/products', productRoutes);
