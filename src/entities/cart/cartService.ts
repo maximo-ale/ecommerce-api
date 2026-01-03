@@ -9,7 +9,7 @@ import { Product } from '../product/productTypes';
 class CartService{
     async getCart(userId: string){
 
-        const cart = await cartRepository.getUserCart(userId);
+        const cart: Cart | null = await cartRepository.getUserCart(userId);
 
         if (!cart){
             throw new NotFoundError('Cart not found');

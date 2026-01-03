@@ -1,3 +1,4 @@
+import { redis } from '../../utils/redis';
 import { BadRequestError, NotFoundError } from '../../utils/errors';
 import productRepository from './productRepository';
 import { Product, ProductFilters, UpdateProduct } from './productTypes';
@@ -15,6 +16,11 @@ class ProductService{
             image,
         });
 
+        await redis.set('product:id', JSON.stringify(newProduct), { EX: 45});
+
+        // Delete Redis's cache
+        await redis.del('products:all');
+
         return newProduct;
     }
 
@@ -25,6 +31,8 @@ class ProductService{
 
         // Prepare filters
         if (name) filter.name = name;
+        if (page) filter.page = page;
+        if (limit) filter.limit = limit;
 
         // Filter min and max price
         if (minPrice) filter.minPrice = minPrice;
@@ -39,15 +47,21 @@ class ProductService{
             throw new NotFoundError('No products found');
         }
 
+        // Save products in cache
+        await redis.set('products:all', JSON.stringify(products), {EX: 60});
+
         return products;
     }
 
     async findOne(productId: string): Promise<Product>{
-        const product = await productRepository.findProductById(productId);
+        const product: Product | null = await productRepository.findProductById(productId);
 
         if (!product){
             throw new NotFoundError('Product not found');
         }
+
+        // Save product in cache
+        await redis.set(`product:${product.id}`, JSON.stringify(product), {EX: 45});
 
         return product;
     }
@@ -69,6 +83,10 @@ class ProductService{
 
         const newProduct: Product = await productRepository.updateProduct(productId, data);
 
+        // Delete cache
+        await redis.del('products:all');
+        await redis.del(`product:${newProduct.id}`);
+
         return newProduct;
     }
 
@@ -79,6 +97,10 @@ class ProductService{
             throw new NotFoundError('Product not found');
 
         }
+
+        // Delete cache
+        await redis.del('products:all');
+        await redis.del(`product:${product.id}`);
 
         return product;
     }

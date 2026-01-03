@@ -13,6 +13,7 @@
     "mongodb": "^6.18.0",
     "mongoose": "^8.17.0",
     "pg": "^8.16.3",
+    "redis": "^5.10.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -33,6 +34,8 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
+    "docker-dev:up": "docker compose up --build",
+    "docker-dev:down": "docker compose down",
     "dev": "nodemon",
     "start": "tsx src/cluster.ts",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles --forceExit",
